@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Container } from "react-bootstrap";
 import data from "../../data.json";
 import Card from "../Card";
 import SortDropdown from "../SortDropDown";
+import PaginationBar from "../PaginationBar";
 import useSort, { orders } from "../../hooks/useSort";
+import getCurrentList from "../../utils/getCurrentList";
 
-const Page = ({ size = "default", ...rest }) => {
+const CardList = ({ cardsNumber }) => {
+    // sorting
     const [sortedItems, sortByProps] = useSort(data, 'Heading');
     const { setSortKey, sortKey, setSortOrder, sortOrder } = sortByProps;
+
+    // pagination
+    const [activePage, setActivePage] = useState(1);
+
+    const visibleItems = cardsNumber ? getCurrentList(sortedItems, activePage, cardsNumber) : sortedItems;
 
     return (
         <Container className="p-5">
@@ -31,16 +39,21 @@ const Page = ({ size = "default", ...rest }) => {
                 />
             </div>
             <div className="d-flex flex-wrap">
-                {sortedItems.map((item) => (
+                {visibleItems.map((item) => (
                     <Card key={item.Heading} {...item} />
                 ))}
             </div>
+            <PaginationBar
+                totalPage={Math.ceil(data.length/cardsNumber)}
+                activePage={activePage}
+                setActivePage={setActivePage}
+            />
         </Container>
     );
 };
 
-Page.propTypes = {
-    size: PropTypes.oneOf(["default", "full"]),
+CardList.propTypes = {
+    cardsNumber: PropTypes.number,
 };
 
-export default Page;
+export default CardList;

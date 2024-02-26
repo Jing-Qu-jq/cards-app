@@ -1,7 +1,5 @@
-import React from "react";
 import PlaceholderImg from "../../images/placeholderImg.png";
 import PlaceholderBackground from "../../images/placeholderBackground.jpg";
-
 
 const Placeholder = () => (
     <div

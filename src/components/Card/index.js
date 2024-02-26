@@ -23,10 +23,11 @@ const Card = ({ className, Heading, Subheading, Price, showBridge, ...rest }) =>
 };
 
 Card.propTypes = {
-    /**
-     * The className to apply to the root node
-     */
     className: PropTypes.string,
+    Heading: PropTypes.string,
+    Subheading: PropTypes.string,
+    Price: PropTypes.number,
+    showBridge: PropTypes.bool,
 };
 
 export default Card;

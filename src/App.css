@@ -32,3 +32,8 @@
   color: green;
   text-align: end;
 }
+
+.nav-link {
+  color: white;
+  font-weight: bold;
+}
